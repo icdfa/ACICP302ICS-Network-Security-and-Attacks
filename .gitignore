@@ -1,0 +1,25 @@
+# Python and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Environment and editor files
+.env
+.vscode/
+.idea/
+*.swp
+
+# Student-generated evidence and exports
+evidence/
+captures/
+logs/
+reports/
+exports/
+*.pcap
+*.pcapng
+*.zip
+
+# Instructor-only material and completed solutions
+instructor-private/
+solution/
