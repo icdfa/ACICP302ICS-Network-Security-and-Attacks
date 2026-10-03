@@ -1,0 +1,5 @@
+venv/
+__pycache__/
+*.pyc
+plant_sim/events.jsonl
+.DS_Store
