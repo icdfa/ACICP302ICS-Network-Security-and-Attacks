@@ -1,4 +1,4 @@
-# ACICP302ICS — Network Security & Attacks
+# ACICP302ICS - Network Security & Attacks
 
 ## ICDFA Practical Build Repository
 
