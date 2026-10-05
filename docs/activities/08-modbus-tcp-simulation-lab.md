@@ -1,47 +1,40 @@
-# Activity 08 — Local Modbus/TCP OT Security Simulation
+# Activity 08 — Supplied Source-Code Modbus/TCP OT Security Lab
 
 ## Purpose
 
-Use the local simulated plant to compare direct Modbus/TCP writes with a simple guarded path. This activity reinforces register mapping, safe test planning, detection evidence, and critical-infrastructure security principles without interacting with real equipment.
+Complete the hands-on run of the course-provided Modbus/TCP simulation. This is the core applied lab and is required unless the instructor explicitly waives it. Learners use the source supplied for this course; they are not asked to create a replacement simulator.
 
-## Authorization boundary
+## Authorized source and boundary
 
-Students should run this activity in their own Ubuntu guest VM using VMware or VirtualBox. The original project files target `192.168.2.139` and bind to `0.0.0.0`; **do not run those original scripts**. Use only the separate `local-linux/` copy, which is configured for `127.0.0.1`. Avoid bridged networking and port forwarding; disconnect the VM network adapter during the lab run. The provided student guide gives setup instructions and official hypervisor networking references. All work remains inside the student's authorized VM and simulated environment.
+Use only `labs/ot-security/student-lab-source/` inside the assigned Ubuntu guest VM. This source is the loopback-safe course copy: the clients and services use `127.0.0.1`. The directory `labs/ot-security/archive-original/` contains an archived copy from an earlier bundle and must not be executed; its scripts use a non-loopback target and broad listener defaults. Do not use bridged networking, port forwarding or any real/external device. Follow the complete [Student Lab Guide](../../labs/ot-security/STUDENT_LAB_GUIDE.md).
 
 ## Learning outcomes
 
-Learners will:
+Learners will identify the supplied plant and register model, compare direct and guarded telemetry, observe the provided range/step/drift checks, capture and interpret evidence, and state the guard’s limitations without overstating what this educational example can guarantee.
 
-- Start a simulated Modbus/TCP process and identify its holding-register map.
-- Compare direct and guarded telemetry using two local dashboards.
-- Observe bounded examples of range, step, and rolling-baseline checks.
-- Collect and interpret evidence without overstating what a small lab guard can guarantee.
-- Explain why authorization, isolation, segmentation, monitoring, and operational review matter in critical-infrastructure security.
+## Preparation
 
-## Required preparation
-
-1. Complete [Activity 00 — Lab preflight and safety](00-lab-preflight-and-safety.md).
-2. Review [`SECURITY_AND_SAFETY.md`](../../SECURITY_AND_SAFETY.md), the assigned scope, and instructor directions.
-3. Read the complete [student setup and lab guide](../../labs/ot-security/STUDENT_LAB_GUIDE.md) and the supplied [project README](../../labs/ot-security/README.md).
-4. Prepare an evidence log, risk register, and topology sketch using the course templates.
+1. Complete Activity 00 and review `SECURITY_AND_SAFETY.md`.
+2. Obtain repository access from the course owner or use the instructor-provided archive.
+3. Prepare the assigned Ubuntu VM and clean snapshot. Install approved dependencies during the permitted setup window; disconnect the VM network adapter for execution.
+4. Verify the canonical source path and record the course source commit.
+5. Prepare the evidence log, topology/register-map, risk register and approved test plan.
 
 ## Learner tasks
 
-1. Create an Ubuntu VM in VMware or VirtualBox and take a clean snapshot.
-2. Install the dependencies in a virtual environment under `labs/ot-security/local-linux/`, then disconnect the VM network adapter.
-3. Verify the local copy uses loopback only and start the plant, validation guard, and dashboards in separate terminals.
-4. Record a baseline and confirm that the VM is not using Bridged networking or port forwarding.
-5. Run the pressure-hold demonstration against the direct port and then the guarded port; compare the output, dashboard values, and guard events.
-6. Run the remaining demonstrations one at a time, following the student guide. Do not modify targets, ports, duration, request counts, or threads.
-7. Explain the observed results, relevant validation layer, limitations, and possible additional controls in the final report.
-8. Stop all programs, remove or retain generated files according to the course evidence policy, and record clean-up status.
+1. Verify the student source contains only loopback destinations/binds. If the check reports a non-loopback address, stop and contact the instructor; do not edit or run it.
+2. Start the supplied plant, guard and dashboards using the Student Lab Guide. Record a normal baseline and compare the direct and guarded views.
+3. Capture normal local Modbus/TCP traffic and connect a request/response to the supplied data model.
+4. Run at least three approved, bounded demonstrations one at a time using the documented defaults. Compare the direct and guarded path, dashboards, script output and relevant event records.
+5. Explain which guard checks are evidenced, any difference from expected results, and limitations such as authentication, availability or correlated values.
+6. Stop all processes, verify clean shutdown/recovery and preserve only evidence allowed by the instructor.
 
 ## Evidence and assessment
 
-Submit the architecture/register map, baseline and test screenshots, concise results table, relevant guard-event evidence, risk-register entry, limitations analysis, and clean-up statement. Use the supplied [evidence log](../templates/evidence-log-template.md), [topology/register map](../templates/topology-and-register-map-template.md), [risk register](../templates/risk-register-template.csv), and [final report](../templates/final-report-template.md).
+Submit your own source-version record, annotated architecture/register map, baseline and comparison evidence, learner-created capture and analysis, three-scenario test plan/results, relevant event evidence, risk entry, limitations analysis and cleanup statement. Use the [evidence log](../templates/evidence-log-template.md), [topology/register-map template](../templates/topology-and-register-map-template.md), [risk register](../templates/risk-register-template.csv), and [final report template](../templates/final-report-template.md).
 
-Assessment should reward safe scope control, reproducibility, accurate interpretation, honest limitations, and clear evidence—not simply whether a demonstration produced a particular value. Learners must use their own observations and must not submit another learner's evidence.
+Assessment rewards safe execution, accurate interpretation, reproducible evidence, honest limitations and recovery—not code volume. The provided source must be attributed, not described as learner-authored work.
 
 ## Instructor note
 
-This is a deliberately small educational simulator, not an operational safety product. The code and dashboards are unauthenticated, and the guard does not provide comprehensive process, identity, or availability protection. The original archive files are preserved unchanged; the student guide's separate local copy is loopback-only. Do not request or perform demonstrations against real devices or networks.
+This is a small unauthenticated educational simulation, not an operational safety or production security product. The guard is limited and tuned to this simulated process. No request or demonstration against real devices or networks is authorized.

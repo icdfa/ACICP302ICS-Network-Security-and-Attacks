@@ -1,36 +1,21 @@
-# Activity 05 — Design a Defensive OT Guard
+# Activity 05 — Analyze the Supplied Defensive OT Guard
 
 ## Purpose
 
-Build a defensive control that makes unsafe process changes visible and prevents or contains them within your simulation.
+Explain how the course-provided guard evaluates simulated Modbus/TCP changes, what evidence it produces and which risks it does not address. A new guard implementation is not required.
 
-## Build requirement
+## Tasks
 
-Create an inline guard, validation layer, monitoring service or equivalent defensive component between the authorised client and your simulated process. Your design must implement at least three of the following safeguards:
-
-- Physical safe-range validation.
-- Maximum step/change-rate validation.
-- Rolling-baseline or drift detection.
-- Authorised-client allow-list or role validation.
-- Alert generation and structured event logging.
-- Fail-safe handling and clear recovery state.
-
-## Complete these tasks
-
-1. Define safe operating assumptions for each protected process value.
-2. Document the rule logic in a simple decision table or flow diagram.
-3. Implement the control in your own project.
-4. Demonstrate normal operations passing through the control.
-5. Record accepted, rejected or alerted events in a structured log.
+1. Inspect `guard.py` and the guarded dashboard in `labs/ot-security/student-lab-source/plant_sim/`.
+2. Build a decision table identifying each implemented check, input, condition, action (accept/reject/alert), and any relevant event/log output. Confirm your interpretation from the source and a normal run.
+3. Identify assumptions and limits. Consider client authentication/authorization, direct-path access, availability, correlated process values, threshold tuning and recovery.
+4. Map the guard’s demonstrated checks to the risks in your risk register. Separate implemented safeguards from recommended future controls.
+5. Do not change the source or thresholds unless the instructor authorizes a defined extension.
 
 ## Evidence to submit
 
-- Guard/control architecture diagram.
-- Decision table or validation logic description.
-- Screenshot/log of normal accepted activity.
-- Sample structured event record and explanation.
-- Updated risk register showing the controls mapped to findings.
+A learner-created architecture/decision table; relevant source references; screenshot or structured event sample from normal operation; guard limitations/residual-risk analysis; and updated risk-register entries.
 
 ## Success criteria
 
-The control makes an evidence-based decision, produces an understandable record and does not silently obscure normal process behaviour.
+You accurately describe what the supplied guard does and does not do, and support each statement with source or runtime evidence. Do not claim the guard makes a real process safe.

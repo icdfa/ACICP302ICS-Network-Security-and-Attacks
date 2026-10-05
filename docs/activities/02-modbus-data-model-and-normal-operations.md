@@ -2,32 +2,20 @@
 
 ## Purpose
 
-Implement and explain the Modbus/TCP layer that carries your simulated process data.
+Document the data model already implemented by the course simulation and connect source definitions to observed normal behaviour. You are not required to create a new Modbus service or register model.
 
-## Build requirement
+## Tasks
 
-Create a documented Modbus/TCP data model. It must include at least:
-
-- Three process values.
-- One alarm, status or safety indicator.
-- Clearly stated engineering units and expected normal ranges.
-- A client view in an HMI/dashboard or equivalent authorised monitoring interface.
-
-## Complete these tasks
-
-1. Assign and document holding-register or approved data-point addresses.
-2. Map every data point to its process meaning, unit, normal range and update behaviour.
-3. Demonstrate normal read behaviour from the approved monitoring interface.
-4. Explain the client/server relationship and the role of the chosen function codes in your own words.
-5. Save the final register map in your repository.
+1. Inspect the canonical student-source files that define process values, registers, units, normal bounds, update behaviour and status/alarm semantics.
+2. Build a register/data-point table with address, meaning, type or scale where identifiable, unit, normal range and evidence/source location. If a value cannot be established from the source, label it as unknown rather than guessing.
+3. Run the normal simulation using the Student Lab Guide and verify selected reads using only the documented local client/service path.
+4. Explain the Modbus/TCP client/server roles and the observed request/response at a high level. Relate values to the dashboard and baseline.
+5. Record any mismatch between code comments, actual behavior and dashboard display as a finding.
 
 ## Evidence to submit
 
-- Completed register-map table.
-- Screenshot of the normal client/dashboard view.
-- Screenshot or log proving normal data reads in the isolated environment.
-- Short written explanation of the Modbus/TCP transaction flow.
+A learner-prepared register map; source references; normal-read/dashboard evidence; and a concise explanation of a normal Modbus/TCP transaction.
 
-## Success criteria
+## Completion check
 
-A reviewer can connect each visible process value to a documented Modbus data point and explain its normal meaning.
+Every documented value is traceable to source or observation, and the work distinguishes a confirmed fact from an assumption.

@@ -2,25 +2,22 @@
 
 ## Purpose
 
-Package, explain and defend your completed OT security testbed professionally.
+Complete the source-code-guided practical by verifying cleanup, organizing your own evidence and explaining what the supplied simulation demonstrates and where its limits remain.
 
-## Complete these tasks
+## Tasks
 
-1. Restore the environment to its approved safe state.
-2. Verify normal process operation after recovery.
-3. Complete the evidence log, risk register and final report.
-4. Review the [rubric](../rubrics/integrated-ot-testbed-rubric.md) against your own work.
-5. Prepare a live demonstration that shows normal operation, one authorised validation scenario, the defensive response and recovery.
-6. Submit your GitHub repository link and the required commit/branch/file references through the ICDFA E-Campus workflow.
+1. Stop every simulation, dashboard and demonstration process. Confirm the documented lab ports no longer have listeners and follow the instructor’s snapshot/recovery direction.
+2. Verify the approved safe/normal state and record any recovery action taken.
+3. Complete the evidence log, local exposure/risk register, validation comparison, final report and evidence index using the course templates.
+4. Review the [integrated rubric](../rubrics/integrated-ot-testbed-rubric.md) and confirm that every material conclusion points to source, packet, log, screenshot or system-state evidence.
+5. Cite the course repository and exact source commit used. Clearly distinguish the supplied code from your own analysis and any instructor-authorized modifications.
+6. Prepare a live demonstration of normal state, one approved bounded scenario, the observed guard response and verified recovery. Follow instructor direction; do not rerun a scenario outside its approval.
+7. Submit your private learner/team evidence repository URL and matching branch/commit/file references through the E-Campus workflow.
 
 ## Evidence to submit
 
-- Final report using the template.
-- Repository URL and final commit reference.
-- Recovery record with final system-state proof.
-- Completed evidence log and risk register.
-- Live defence checklist.
+Final report, evidence index, repository URL/commit reference, completed evidence log and risk register, test comparison and recovery record, plus a concise defence plan.
 
 ## Success criteria
 
-You can explain what you built, why each defensive decision exists, what your evidence proves and how the system returns safely to normal operation.
+You can explain the supplied code you used, its observed behaviour, what each item of evidence proves, the limitations of its controls, and how the lab returned to its approved safe state.

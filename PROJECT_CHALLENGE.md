@@ -1,41 +1,51 @@
-# Practical Build Challenge
+# Practical Lab Challenge — Analyze, Operate, Defend and Recover the Supplied OT Simulation
 
 ## Challenge statement
 
-Build and defend an original, isolated **Modbus/TCP OT security testbed** that represents a small simulated industrial process.
+Use the **instructor-provided source code** in `labs/ot-security/student-lab-source/` to investigate a simulated Modbus/TCP industrial process. Establish its normal behaviour, explain its architecture and data model, capture and interpret local protocol traffic, evaluate the supplied defensive guard, run the bounded demonstrations within the approved scope, and verify recovery.
 
-Your implementation must show the difference between normal operation, an unsafe simulated condition and a protected state. The course assesses your engineering judgement, evidence and recovery—not a copied interface or a particular programming language.
+This is a source-code-guided practical. You are **not required to create a replacement plant simulator, dashboard, Modbus service or guard**. Your assessed contribution is your own safe execution, technical reasoning, evidence, risk analysis and report. Do not alter course code unless the instructor authorizes a specific extension.
 
-## Minimum functional acceptance criteria
+## Required practical outcomes
 
-| Capability | Your implementation must demonstrate |
+| Area | What you must demonstrate using the supplied source |
 |---|---|
-| Simulated process | At least three changing process values and one alarm/status state |
-| Modbus/TCP service | A documented, functioning data model that the authorised client can read |
-| Monitoring view | A dashboard/HMI or equivalent that makes normal state understandable |
-| Packet evidence | A capture and explanation of normal Modbus/TCP request/response behaviour |
-| Exposure record | A strictly scoped inventory of the simulation’s relevant services/data points and risks |
-| Defensive control | At least three meaningful validation, restriction, detection or logging safeguards |
-| Controlled validation | Evidence that the control reacts appropriately to authorised simulated abnormal conditions |
-| Recovery | Proof that normal, safe operation is restored after validation |
+| Preflight and scope | Confirm repository access, the assigned Ubuntu VM, snapshot and isolated configuration; record the source path and commit. |
+| Architecture and baseline | Trace the plant, Modbus/TCP service, dashboards, guard and event flow from the code; run the normal simulation and document its baseline. |
+| Data model | Inspect the provided process/register definitions; document addresses, units, ranges, state meaning and normal update behaviour. |
+| Packet analysis | Capture normal lab traffic and explain a matching Modbus/TCP request/response in relation to the simulated process. |
+| Exposure assessment | Inventory only the documented local lab services and their roles; identify risks and appropriate controls. |
+| Guard evaluation | Explain the supplied validation checks, observable decisions and limitations using source and runtime evidence. |
+| Controlled validation | Prepare a plan and run at least three instructor-approved, bounded demonstrations from the supplied source against the loopback-only simulator. |
+| Recovery and communication | Stop the lab cleanly, verify the normal/safe state, link each conclusion to evidence and present the result. |
 
-## Required defensive design qualities
+## Authorized student source
 
-Your defensive component must be purposeful, observable and explainable. It should document the assumptions behind its decision-making, the conditions it checks and the resulting event record.
+The single student-execution source is [`labs/ot-security/student-lab-source/`](labs/ot-security/student-lab-source/). Follow [`labs/ot-security/STUDENT_LAB_GUIDE.md`](labs/ot-security/STUDENT_LAB_GUIDE.md) exactly. The directory `labs/ot-security/archive-original/` contains an archival copy from an earlier bundle; its scripts use non-loopback network defaults and are **not authorized for execution**.
 
-Examples of valid safety checks include normal-range validation, unusually large value-change detection, baseline-deviation detection, authorised-client controls and structured alerts. Your design may use a different defensible combination with instructor approval.
+## Minimum evidence package
+
+- Preflight record, VM/snapshot details, source path and source commit.
+- Learner-annotated architecture/data-flow diagram and normal baseline.
+- Register/data-point map with units, ranges and alarm/status meaning.
+- Learner-created local packet capture, annotated request/response and explanation.
+- Loopback-only service inventory, risk-register entries and control recommendations.
+- Guard source analysis, safeguards/limitations table and relevant event/log evidence.
+- Approved test plan for at least three bounded scenarios, with expected-versus-observed results.
+- Recovery/cleanup verification, final report and demonstration notes.
 
 ## Non-functional requirements
 
-- The testbed must be runnable only in the authorised isolated ICDFA lab environment.
-- All configuration values relevant to your environment must be documented; do not publish credentials or real target details.
-- Use meaningful commit messages and retain a clear development history.
-- Write an original `README.md` with setup, safety, design and evidence sections.
-- Explain limits honestly; a control that does not address every risk should state what it cannot protect.
+- Use the supplied course source in the assigned isolated Ubuntu VM; never target any real or external system.
+- Preserve the canonical loopback configuration. Do not change target addresses, bind addresses, ports, request counts, duration, thread counts or script scope.
+- Record the method, starting state, exact authorized action, observation, evidence reference, conclusion and recovery for each test.
+- Keep credentials, personal information and sensitive evidence out of the public web and out of the course-source repository.
+- Attribute the course-provided source and any additional references. Your analysis and evidence must be your own and explainable during the defence.
 
 ## Out of scope
 
-- Real industrial devices, production services and external networks.
-- Public deployment or bridged connectivity.
-- Copying a completed implementation, attack script, report, capture or evidence set.
-- Any activity not expressly authorised by the practical brief and instructor.
+- Building a new simulator/guard as a prerequisite.
+- Executing files from `labs/ot-security/archive-original/`.
+- Real industrial equipment, production systems, external networks, bridged networking or port forwarding.
+- Scanning or testing any host other than the documented loopback services in the student source.
+- Unapproved code changes or demonstrations beyond the published lab guide.

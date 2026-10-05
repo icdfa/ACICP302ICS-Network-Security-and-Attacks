@@ -2,28 +2,20 @@
 
 ## Purpose
 
-Perform a strictly scoped discovery exercise against your own simulation and turn the result into a defensible OT exposure record.
+Understand what local services the supplied simulation exposes and assess their process relevance without probing any external host or network.
 
-## Before you begin
+## Tasks
 
-Write a scope card that names the single authorised VM(s), network, permitted time window and rollback state. Obtain instructor approval where required.
-
-## Complete these tasks
-
-1. Verify that your target is your own simulation and the correct snapshot is available.
-2. Identify the simulated OT service endpoints and the purpose of each authorised component.
-3. Record the exposed services, protocol role, business/process relevance and potential effect of loss or misuse.
-4. Identify the Modbus data points needed to explain the process—not information outside your lab scope.
-5. Enter findings into the [risk register](../templates/risk-register-template.csv).
-6. Recommend one preventative and one detective control for each material finding.
+1. Read the service/bind configuration in `labs/ot-security/student-lab-source/plant_sim/` and identify only the documented loopback endpoints and ports.
+2. Prepare a scope card naming the assigned VM, loopback-only target, permitted observation method, time window, expected state, stop condition and recovery action.
+3. Use source inspection and the Student Lab Guide’s approved read-only checks to confirm which services are active. Do not widen the range, change a target address or scan any non-loopback address.
+4. Record each relevant endpoint’s component role, protocol, process significance and likely consequence of exposure or misuse.
+5. Add evidence-based entries to the risk register with a preventative and detective control. Distinguish observed facts from inferred risk.
 
 ## Evidence to submit
 
-- Approved scope card.
-- Discovery/exposure record with only authorised systems.
-- Updated risk register.
-- Short conclusion distinguishing asset visibility from production-safe operation.
+Approved scope card; source-based local service inventory; relevant command/output or screenshot; risk-register entries; and a short conclusion explaining visibility versus safe operation.
 
 ## Safety boundary
 
-Do not scan, probe or enumerate systems beyond your assigned simulation. Do not use broad range discovery, external targets, public IPs, bridged adapters or real devices.
+This activity is not authorization to run general network discovery tools. Do not target any host except the documented loopback services in the student source. Stop if an endpoint resolves or binds outside `127.0.0.1`.

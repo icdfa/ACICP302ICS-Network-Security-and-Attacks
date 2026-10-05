@@ -1,36 +1,25 @@
-# Student Project Starter
+# Learner Evidence Workspace Template
 
-Create your own private project repository or instructor-approved workspace from this structure. Do not place completed learner solutions in the course repository.
+The course supplies the simulation source in `labs/ot-security/student-lab-source/`. Learners use that code as the lab environment; do not build a replacement source implementation unless the instructor assigns an extension.
+
+Create your own private evidence repository or approved workspace. This suggested structure organizes your original observations and evidence; it is not a copy of the course source and is not a place to publish sensitive material.
 
 ```text
-your-acicp302ics-project/
-├── README.md
-├── src/                 # Your original implementation
+learner-evidence/
+├── README.md                    # learner/team, course, source commit cited
 ├── docs/
-│   ├── topology.md
-│   ├── register-map.md
-│   ├── risk-register.csv
-│   └── test-plan.md
+│   ├── topology-and-flow.md     # your annotations of the supplied system
+│   ├── register-map.md          # your verified data-point map
+│   ├── risk-register.csv        # your scoped findings
+│   └── test-plan.md             # approved scenarios and stop/recovery conditions
 ├── evidence/
-│   ├── screenshots/
-│   ├── captures/
-│   └── logs/
-├── report/
-└── requirements.txt     # Or equivalent dependency manifest
+│   ├── screenshots/             # labeled evidence from your assigned VM
+│   ├── captures/                # approved PCAP/PCAPNG files
+│   └── logs/                    # approved relevant outputs
+├── evidence-log.md
+└── report/
+    ├── final-report.md
+    └── evidence-index.md
 ```
 
-## Minimum project README
-
-Your own `README.md` must include:
-
-1. Project title, learner/team name and course code.
-2. Purpose and simulated process description.
-3. Isolated-lab-only safety statement.
-4. Component diagram and data flow.
-5. Setup prerequisites and safe local run instructions.
-6. Evidence inventory and how to reproduce normal operation.
-7. References and third-party library acknowledgements.
-
-## Optional dependency reference
-
-If your approved design uses a Python Modbus simulator and web dashboard, begin with `requirements.example.txt` as a dependency reference. You remain responsible for choosing compatible versions and documenting your own implementation.
+Do not commit tokens, passwords, private keys, real site details or evidence the instructor has not approved for repository submission. Identify the course source URL and exact commit used. The supplied course code must be attributed and must not be described as learner-authored code.

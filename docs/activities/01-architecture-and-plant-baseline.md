@@ -2,29 +2,20 @@
 
 ## Purpose
 
-Build the first working version of your simulated OT process and document the data path before applying security controls.
+Understand how the supplied simulation is assembled and establish a learner-observed normal baseline. You are analyzing and operating course source code, not designing or coding a replacement system.
 
-## Build requirement
+## Tasks
 
-Create a simulated process using an instructor-approved design. You may use the assigned OpenPLC/FUXA environment or your own local simulation components, provided that all communication remains inside the isolated lab.
-
-Your process must expose at least three measurable values and one status/alarm state. A water/tank, pressure, temperature, energy or comparable simulated process is acceptable.
-
-## Complete these tasks
-
-1. Define the process purpose and normal operating state.
-2. Create the plant/process component and show stable normal telemetry.
-3. Identify the data producer, Modbus server, HMI/dashboard client and analyst function in your topology.
-4. Document the data flow from process to visualization.
-5. Record normal values for a sustained observation period agreed with the instructor.
+1. Read the source and role descriptions in `labs/ot-security/student-lab-source/plant_sim/` and `docs/reference-architecture.md`.
+2. Trace how the simulated process, Modbus/TCP service, direct dashboard, guard, guarded dashboard and demonstration clients relate. Annotate the reference diagram with your own explanation of the data flow.
+3. Follow the Student Lab Guide to start only the normal process and views. Do not start a demonstration script yet.
+4. Observe normal process values and status/alarm behavior over the instructor-agreed interval. Record what changes, what remains stable and how the dashboards differ.
+5. Stop the processes as directed and record the final state.
 
 ## Evidence to submit
 
-- Finalised topology diagram using the [topology and register-map template](../templates/topology-and-register-map-template.md).
-- Screenshot(s) showing the running process and normal telemetry.
-- Baseline observations in the evidence log.
-- A short explanation of the process, the expected normal behaviour and the alarm meaning.
+An annotated topology/data-flow diagram; short component-role notes based on source inspection; screenshots of normal dashboards; baseline observations and a linked evidence-log entry.
 
-## Success criteria
+## Completion check
 
-Your simulated process runs normally, the values are understandable and the data path can be explained without ambiguity.
+Explain which supplied components serve the plant, Modbus service, monitoring and defensive functions, and support the explanation with both source references and your own observations.

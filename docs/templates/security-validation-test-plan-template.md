@@ -1,22 +1,27 @@
-# Controlled Security Validation Test Plan
+# Controlled Validation Test Plan — Supplied Simulation
 
 **Learner/Team:**
 **Date and WAT time:**
-**Authorised testbed/snapshot:**
+**Assigned Ubuntu VM/snapshot:**
+**Course source commit:**
+**Canonical source path:** `labs/ot-security/student-lab-source/`
+**Authorized target:** `127.0.0.1` only
 **Instructor approval reference, if required:**
 
-| Scenario ID | Authorised simulated condition | Expected process/guard behaviour | Evidence to collect | Stop condition | Recovery action | Result |
-|---|---|---|---|---|---|---|
-| SV-01 |  |  |  |  |  |  |
-| SV-02 |  |  |  |  |  |  |
-| SV-03 |  |  |  |  |  |  |
+Before running a scenario, use only a script and parameters explicitly permitted by the Student Lab Guide/instructor. Do not change target, port, request count, duration or thread count.
+
+| Scenario ID | Supplied script and local path | Starting state | Expected process/guard behaviour | Evidence to collect | Stop condition | Recovery action | Result |
+|---|---|---|---|---|---|---|---|
+| SV-01 |  |  |  |  |  |  |  |
+| SV-02 |  |  |  |  |  |  |  |
+| SV-03 |  |  |  |  |  |  |  |
 
 ## Comparison summary
 
-| Scenario | Baseline state | Protected state | Log/packet reference | Finding | Recommended improvement |
+| Scenario | Baseline state | Observed direct/guarded state | Log/packet/dashboard reference | Finding/limitation | Recovery verified? |
 |---|---|---|---|---|---|
 |  |  |  |  |  |  |
 
 ## Completion confirmation
 
-Confirm that every scenario was run only against the assigned simulation and that the environment was restored to the approved normal state.
+I/We confirm that every scenario was run only against the documented loopback simulation in the assigned VM, using supplied parameters, and that the environment was stopped and restored to the approved state.

@@ -1,3 +1,4 @@
-# Example only — learners choose and document their own approved dependencies.
-pymodbus>=3.6,<4
-Flask>=3.0,<4
+# This example is not used for the standard source-code-guided practical.
+# Use the supplied course source manifest instead:
+# labs/ot-security/student-lab-source/requirements.txt
+# Install only in a project-local virtual environment during the approved setup window.

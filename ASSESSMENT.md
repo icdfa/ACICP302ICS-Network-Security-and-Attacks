@@ -1,24 +1,24 @@
 # Integrated Practical Assessment
 
-The integrated OT testbed assessment is marked out of **100**. Use the detailed [rubric](docs/rubrics/integrated-ot-testbed-rubric.md) throughout the course, not only at submission time.
+The assessment is marked out of **100**. Learners complete the activities using the instructor-provided loopback-safe source in `labs/ot-security/student-lab-source/`. A replacement implementation is not required. Use the detailed [rubric](docs/rubrics/integrated-ot-testbed-rubric.md) throughout the course.
 
 | Assessment area | Marks |
 |---|---:|
-| Functional isolated OT testbed and documented architecture | 20 |
-| Modbus/TCP implementation and normal-operation evidence | 15 |
-| Packet visibility, protocol analysis and scoped exposure record | 15 |
-| Defensive OT guard/control and meaningful audit logging | 20 |
+| Safe source-code lab operation, architecture analysis and normal baseline | 20 |
+| Modbus/TCP data model and normal-operation analysis | 15 |
+| Packet visibility, protocol analysis and scoped local exposure record | 15 |
+| Supplied OT guard analysis, behaviour and meaningful audit evidence | 20 |
 | Controlled validation, findings and recovery verification | 15 |
 | Professional report, evidence quality and project defence | 15 |
 | **Total** | **100** |
 
 ## Minimum submission set
 
-1. Project source and deployment instructions.
-2. System topology and register map.
-3. Labelled screenshots, packet captures and logs.
-4. Completed evidence log and risk register.
-5. Final report using the course template.
-6. Live demonstration of normal operation, control response and recovery.
+1. Preflight and safety record, including assigned VM, source path and source commit.
+2. Learner-annotated system topology/data flow and supplied register/data-point map.
+3. Normal-operation baseline and a learner-created, labeled packet capture with request/response analysis.
+4. Documented local-only service inventory, risk register and guard analysis.
+5. Approved validation plan for at least three bounded scenarios, with logs/packets/screenshots and expected-versus-observed findings.
+6. Recovery/cleanup record, evidence log, final report and live demonstration/defence.
 
-Evidence must show the method, observation, conclusion, exact actions, results and recovery. Screenshots alone are insufficient.
+Use the course source as the lab platform and cite it. The assessed work is your own execution, analysis and evidence; do not claim authorship of the provided code. Evidence must show method, starting state, exact authorized action, result, interpretation and recovery. Screenshots alone are insufficient. The Practical Laboratories workflow protects maximum marks after the first submission. Apply the institutional practical-pass threshold shown in the LMS.

@@ -2,28 +2,21 @@
 
 ## Purpose
 
-Establish an authorised, isolated and recoverable workspace before you build or test anything.
+Prepare the assigned Ubuntu VM and verify that you will use the authorized course source. This activity is mandatory before launching any simulation process.
 
-## Complete these tasks
+## Tasks
 
-1. Record the assigned VM names, snapshot names and the approved isolated network name in your evidence log.
-2. Confirm that the VM network is host-only or instructor-approved internal networking; it must not be bridged or public.
-3. Create a clean working folder/repository using the structure in [`starter/README.md`](../../starter/README.md).
-4. Draw the initial topology: process/PLC, HMI/dashboard, analyst workstation and defensive component (if separate).
-5. Record the starting state and create or confirm a clean rollback snapshot.
-6. Read and sign the project safety declaration in your report.
+1. Confirm repository access or obtain the approved archive from the instructor. Follow `labs/ot-security/STUDENT_LAB_GUIDE.md`.
+2. Create or restore the instructor-assigned clean VM snapshot. Confirm the network adapter is not bridged and there is no port forwarding. Complete approved package downloads before disconnecting the adapter for the lab run.
+3. Locate the canonical student source: `labs/ot-security/student-lab-source/`. Do not execute anything under `labs/ot-security/archive-original/`.
+4. Verify that the student source uses `127.0.0.1` for its clients and service binds. If any target is not loopback, stop and contact the instructor; do not edit the source to make the check pass.
+5. Record the course repository commit (`git rev-parse HEAD`), VM/snapshot, date and WAT time, permitted scope, stop condition and recovery method.
+6. Start the evidence log and set up your private learner evidence workspace using `starter/README.md`.
 
 ## Evidence to submit
 
-- Completed first entry in the [evidence log](../templates/evidence-log-template.md).
-- Topology draft showing only your authorised simulated components.
-- Screenshot or record proving the clean snapshot/start state.
-- Safety declaration signed by every team member.
+A completed preflight/evidence-log entry, VM and snapshot details, source path and commit, loopback check result, initial state and signed safety declaration.
 
-## Success criteria
+## Completion check
 
-You can identify every system in scope, explain the isolation boundary and restore the lab to its initial state.
-
-## Stop condition
-
-Stop and notify the instructor if any adapter is bridged, an address is externally routable, a real device is visible, or the allocated network is unclear.
+Do not proceed until you and the instructor-approved scope agree, the canonical source path is confirmed, and no bridged/public connectivity or non-loopback target is present.

@@ -6,46 +6,50 @@
 |---|---|
 | Course code | ACICP302ICS |
 | Course title | Network Security & Attacks |
-| Delivery mode | Practical laboratories only |
+| Delivery mode | Practical laboratories |
 | Academy | International Cybersecurity and Digital Forensics Academy (ICDFA) |
-| Learning model | Build, observe, validate, document and defend |
+| Learning model | Inspect, run, observe, validate, document and defend a supplied simulation |
 
 ## Course purpose
 
-This course develops the practical ability to analyse an OT/ICS network, understand Modbus/TCP behaviour, assess an authorised simulated environment safely and implement defensive controls that protect process integrity and availability.
+This course develops practical ability to analyze an OT/ICS network, understand Modbus/TCP behaviour, assess an authorized simulated environment safely, evaluate defensive controls and communicate findings using evidence. The course provides the simulation source code. Learners use that source as the lab environment rather than building a replacement implementation.
 
-Each learner or approved team builds an original OT Modbus/TCP security testbed. The finished system is the accumulated result of the practical activities in this repository.
+The canonical student source is `labs/ot-security/student-lab-source/`. It is configured for loopback use in the assigned Ubuntu VM. `labs/ot-security/archive-original/` is an archival copy only and must not be executed. See the [Student Lab Guide](labs/ot-security/STUDENT_LAB_GUIDE.md).
 
 ## Intended learning outcomes
 
 On successful completion, learners should be able to:
 
-1. Design an isolated simulated OT network and document its data flow.
-2. Implement and explain a Modbus/TCP data model for a simulated process.
-3. Capture and interpret normal industrial-protocol traffic.
-4. Perform scoped discovery and exposure assessment without disrupting the assigned simulation.
-5. Implement a defensive OT control that validates process changes and produces useful audit evidence.
-6. Compare normal, unsafe and protected states using facts from packets, logs and system behaviour.
-7. Recover the simulation safely and communicate findings in a professional report and demonstration.
+1. Explain the supplied simulated OT architecture, component roles and data flow.
+2. Inspect and document the supplied Modbus/TCP data model and normal process state.
+3. Capture and interpret normal industrial-protocol traffic from the approved simulation.
+4. Assess the documented local services and explain process-relevant exposure and risk.
+5. Explain the supplied defensive guard’s checks, outputs and limitations.
+6. Compare normal and simulated validation behaviour using packets, logs and system observations.
+7. Restore the simulation safely and communicate evidence-based findings in a professional report and demonstration.
 
 ## Prior knowledge and environment
 
-This practical course builds on prior PLC, SCADA/HMI, Modbus and Wireshark work. Use the ICDFA-provided isolated virtual environment, which may include OpenPLC, FUXA/SCADA and an analyst VM.
+This practical builds on introductory networking, PLC/SCADA concepts, Modbus and Wireshark. Learners use the instructor-issued isolated Ubuntu virtual machine and the course-provided source repository. The instructor supplies the exact VM, access arrangements and lab window. Do not substitute a personal, campus, public or production network.
 
-The instructor allocates the exact VM images, addressing and lab window. Do not substitute a personal, campus, public or production network.
+The course repository is private. The instructor must grant enrolled learners access or provide the approved course archive through the LMS.
 
-## Learner ownership
+## Learner responsibility and academic integrity
 
-- Build your own implementation; the design, code and evidence must be yours.
-- You may use documented, approved libraries and cite them in your report.
-- You may discuss concepts with peers, but you may not share source code, captures, screenshots, answer files or reports.
-- Keep your project in a private repository or instructor-approved workspace until assessment is complete.
+- Use and study the supplied source as the lab platform; a new implementation is not required.
+- Produce your own notes, diagrams, captures, screenshots, logs, analysis, risk assessment, test records and report.
+- Cite the course repository and record the source commit used. Do not present the course source as code you wrote.
+- Do not copy another learner’s evidence or report. Be prepared to explain every conclusion during the defence.
+- Do not modify course code or safety parameters unless the instructor authorizes a specific extension.
+- Submit evidence through your own private learner/team repository or instructor-approved workspace, not by changing the course-source repository.
 
 ## Required final artefacts
 
-- Source repository with a setup guide.
-- Architecture diagram and register map.
-- Baseline and validation packet captures.
-- Evidence log and risk register.
-- Defensive-control design and audit records.
-- Final report and live technical defence.
+- Preflight/safety record identifying the assigned VM, source path and source commit.
+- Annotated architecture and process/data-flow description.
+- Register/data-point map and normal-operation baseline.
+- Learner-created packet capture with annotated Modbus/TCP request/response analysis.
+- Local-only service/exposure record and risk register.
+- Guard behaviour/limitations analysis and relevant event evidence.
+- Approved validation plan with at least three scenarios and recovery verification.
+- Evidence log, final report and live technical defence.

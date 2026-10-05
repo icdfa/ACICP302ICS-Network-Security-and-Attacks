@@ -2,35 +2,25 @@
 
 ## Purpose
 
-Validate your own defensive design using authorised simulation scenarios, then compare the observed protected state with the baseline state.
+Run approved demonstrations supplied with the course source, compare direct and guarded simulation behaviour, and document evidence-based conclusions. The demonstrations must remain on loopback in the assigned Ubuntu VM.
 
 ## Required approach
 
-Create a test plan before running any scenario. The plan must state the authorised target, expected impact, success measure, collection method, stop condition and recovery step.
+Before execution, complete the [test-plan template](../templates/security-validation-test-plan-template.md). For each scenario, record the canonical source and script, loopback target/path, starting state, expected outcome, evidence method, stop condition and recovery. Obtain instructor approval where required.
 
-Use only your own simulation. Select at least three relevant scenarios, such as:
+## Tasks
 
-- A process value request outside the documented safe range.
-- An unusually large or rapid value change.
-- A gradual deviation from the baseline.
-- Repeated normal-looking requests that require visibility or rate control.
-
-## Complete these tasks
-
-1. Capture the baseline state before each scenario.
-2. Execute the authorised simulation scenario only within the assigned lab.
-3. Observe the process, dashboard, packet capture and defensive event logs.
-4. Compare expected and actual guard behaviour.
-5. Record whether the control allowed, rejected, alerted on or contained the event.
-6. Restore a safe normal state and verify recovery.
+1. Select at least three scenarios explicitly permitted by the Student Lab Guide or instructor. Use the supplied script defaults unchanged.
+2. Record a normal/baseline state before each scenario.
+3. Run one demonstration at a time against the documented direct or guarded local path, as planned. Do not change target address, port, request count, duration, threads or other parameters.
+4. Observe relevant process/dashboard state, script output and guard events. Capture only evidence needed for the analysis.
+5. Compare expected with observed behaviour. State whether the path accepted, rejected, alerted on or otherwise responded to the simulated condition; explain unexpected or variable results honestly.
+6. Stop the scenario and verify recovery before proceeding to the next one.
 
 ## Evidence to submit
 
-- Completed [test-plan template](../templates/security-validation-test-plan-template.md).
-- Relevant capture/log evidence for each scenario.
-- Defended-versus-baseline comparison table.
-- Recovery verification for each scenario.
+Completed test plan; evidence for at least three scenarios; expected-versus-observed comparison; source/script identification; and recovery verification after each scenario.
 
-## Success criteria
+## Safety boundary
 
-Your conclusion is based on packet, log and process-state evidence—not assumption or screenshots alone.
+Use only the canonical loopback-only student source. Do not execute archived scripts, widen test scope, or target any external system. Stop immediately if an address other than `127.0.0.1` appears or a VM becomes unstable.

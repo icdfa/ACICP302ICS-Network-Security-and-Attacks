@@ -1,94 +1,75 @@
-# Student Lab Guide: OT Security Testbed on Ubuntu
+# Student Lab Guide — Supplied OT Security Simulation on Ubuntu
 
 **Course:** ACICP302ICS — Network Security & Attacks
-**Guide prepared by Aminu Idris, AMCPN**
+**Guide prepared by:** Aminu Idris, AMCPN
 
-This guide is for students running Ubuntu Linux **inside a VMware or VirtualBox virtual machine**. The original project files from `ot-security-main.zip` are preserved unchanged in this folder. Use the separate `local-linux/` copy for the lab: it binds services and directs demonstration clients to **127.0.0.1 only**, so it does not contact another computer on your network.
+This course uses the instructor-provided simulation source. Run only `labs/ot-security/student-lab-source/` inside the assigned Ubuntu guest VM. The `labs/ot-security/archive-original/` directory is an archival copy with unsafe network defaults and **must not be executed**. You are expected to inspect and use the supplied code; building a replacement simulator is not required. Your assessed work is your own analysis, observations, captures, logs, report and evidence.
 
-## 1. Safety rules
+## 1. Non-negotiable safety rules
 
-- Run this lab only in your own course VM, using the `local-linux/` copy described below.
-- Do not run the original `plant_sim` scripts in the root of this folder. They target `192.168.2.139` and bind servers to `0.0.0.0`, which can reach/expose systems beyond the VM.
-- Do not change the local copy's address, ports, request count, or duration; do not point any script at a real PLC, HMI, SCADA system, industrial device, public IP, campus network, or another student’s VM.
-- Do not configure bridged networking, port forwarding, or a connection to a production network for the lab.
-- If the network or destination behaves unexpectedly, stop all programs and tell the instructor.
-- This is a learning simulation, not a production defense, safety system, or authorization to test real critical infrastructure.
+- Use only the canonical `student-lab-source/` directory identified in this guide.
+- Do not run or copy commands from `archive-original/`.
+- Keep all simulation traffic on `127.0.0.1` inside the assigned Ubuntu VM. Do not use bridged networking, port forwarding, real devices, public/campus/home networks or another learner’s VM.
+- Do not change targets, bind addresses, ports, request counts, durations or thread counts in the supplied scripts.
+- If a target/bind address is not `127.0.0.1`, stop and notify the instructor. Do not edit the source to force the check to pass.
+- This is an educational simulation, not a production security or process-safety product.
 
-## 2. Create an Ubuntu VM
+## 2. Prepare the Ubuntu VM
 
-Use an instructor-approved Ubuntu LTS installer and a supported VMware or VirtualBox version. Create a fresh VM for this lab; do not install the software on a production or shared OT computer. A practical student setup is a normal Ubuntu Desktop or Server VM with enough memory and disk for the OS, Python, and browser.
+Use the instructor-approved Ubuntu LTS image and VMware or VirtualBox installation. Create a fresh guest VM for this lab and take a clean snapshot. Never install or run this lab on a production OT computer.
 
-### VirtualBox
+**VirtualBox:** In VM Settings → Network, do not select Bridged Adapter and do not configure port forwarding. Use NAT temporarily only if the instructor permits it for package/repository downloads. Shut down the VM and set the adapter to Not attached before running the lab. See the [VirtualBox networking manual](https://www.virtualbox.org/manual/ch06.html).
 
-1. Create a new VM and install Ubuntu from the instructor-approved ISO.
-2. In the VM's **Settings → Network**, do not select **Bridged Adapter** and do not configure port forwarding.
-3. If internet access is needed to install Ubuntu updates or Python packages, use **NAT temporarily**. Shut the VM down afterward and set the adapter to **Not attached** for the lab run. VirtualBox describes “Not attached” as a virtual network card with no connection; see the [VirtualBox networking manual](https://www.virtualbox.org/manual/ch06.html).
-4. Take a clean snapshot before starting the lab.
+**VMware Workstation/Player:** Do not select Bridged and do not configure port forwarding. Use NAT temporarily only for approved downloads. Disconnect the virtual adapter before the lab run. If the instructor requires an attached adapter, use an approved Host-only configuration, never Bridged. See [VMware Host-only networking](https://techdocs.broadcom.com/us/en/vmware-cis/desktop-hypervisors/workstation-pro/17-0/using-vmware-workstation-pro/configuring-network-connections/configuring-host-only-networking.html) and [networking modes](https://techdocs.broadcom.com/us/en/vmware-cis/desktop-hypervisors/workstation-pro/17-0/using-vmware-workstation-pro/configuring-network-connections/understanding-common-networking-configurations.html).
 
-### VMware Workstation / Player
+The simulation itself uses Linux loopback and does not need internet access. Complete approved downloads first, shut down the guest, disconnect its adapter, then start the lab.
 
-1. Create a new VM and install Ubuntu from the instructor-approved ISO.
-2. Do not select **Bridged** networking and do not configure port forwarding.
-3. If internet access is needed to install Ubuntu updates or Python packages, use **NAT temporarily**. Shut the VM down afterward and disconnect the virtual network adapter before the lab run. If the adapter must remain connected, use **Host-only** rather than Bridged; VMware documents Host-only as a private network contained within the host ([Host-only networking](https://techdocs.broadcom.com/us/en/vmware-cis/desktop-hypervisors/workstation-pro/17-0/using-vmware-workstation-pro/configuring-network-connections/configuring-host-only-networking.html), [networking modes](https://techdocs.broadcom.com/us/en/vmware-cis/desktop-hypervisors/workstation-pro/17-0/using-vmware-workstation-pro/configuring-network-connections/understanding-common-networking-configurations.html)).
-4. Take a clean snapshot before starting the lab.
+## 3. Obtain the course repository
 
-**The lab itself needs no network adapter or internet connection.** The local copy uses Linux loopback (`127.0.0.1`) for the plant, guard, dashboards, and demonstrations. For the safest setup, disconnect the VM network adapter after installation and dependency setup. Run the browser inside Ubuntu, not on the host computer.
+The GitHub repository is private. Ask the course owner to grant you access, or use the instructor-provided approved archive. Do not share passwords, access tokens or credentials.
 
-## 3. Put the repository files in the VM
-
-While the VM is temporarily connected by NAT for setup, install the basic Ubuntu tools needed for Python virtual environments and Git:
+If repository access is authorized, use NAT only temporarily for cloning and package setup. In an Ubuntu terminal:
 
 ```bash
 sudo apt update
 sudo apt install -y python3 python3-venv python3-pip git
-```
-
-Complete any repository download and Python dependency installation during this temporary setup window. Then shut down the VM and disconnect its virtual network adapter before running the lab. If you already received the files through an instructor-approved archive, Git is optional.
-
-The GitHub repository is currently **private**. Students need access granted by the repository owner, or an instructor-provided approved archive. Do not share passwords, access tokens, or credentials with classmates. If authorized access is available, clone the repo inside Ubuntu while the VM has temporary NAT access:
-
-```bash
+mkdir -p ~/course
+cd ~/course
 git clone https://github.com/icdfa/ACICP302ICS-Network-Security-and-Attacks.git
+cd ACICP302ICS-Network-Security-and-Attacks
 ```
 
-Use the instructor-approved method to copy the repository or ZIP into the Ubuntu guest. If you use a temporary VMware/VirtualBox shared folder to transfer files, copy the files into the guest’s home directory and then unmount/disable the shared folder before running the lab.
+If you received an archive, extract it inside the guest and change to the extracted course-repository directory instead. If you used a shared folder to transfer files, copy the repository into the guest’s home directory and disable/unmount the shared folder before running the lab.
 
-In a terminal inside Ubuntu, move to the repository’s safe copy (adjust only the repository’s parent directory if it is stored elsewhere):
+Record the course-source commit before starting:
 
 ```bash
-cd ~/ACICP302ICS-Network-Security-and-Attacks/labs/ot-security/local-linux
+git rev-parse HEAD
 ```
 
-The `local-linux/` folder contains its own `plant_sim/` directory and its own `requirements.txt`. The original supplied project remains one level above, unchanged. **Use only `local-linux/plant_sim` for the student exercises.**
+## 4. Use the canonical student source only
 
-## 4. Install Python dependencies in a virtual environment
-
-Check Python and create a project-local environment:
+Change to the single authorized runnable source directory:
 
 ```bash
-python3 --version
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
+cd ~/course/ACICP302ICS-Network-Security-and-Attacks/labs/ot-security/student-lab-source
 ```
 
-The copied local requirements include `pymodbus` and Flask, both needed by this version of the lab. Do not use `sudo pip`, install packages globally, or remove the virtual environment while services are running.
-
-If pip needs internet access, use NAT only temporarily for this installation, then shut down the VM and disconnect the virtual adapter before running the demonstrations. If course rules prohibit package downloads, ask the instructor for an approved offline wheelhouse.
-
-## 5. Verify the local-only copy
-
-Before launching anything, from the `local-linux` folder run:
+If your repository is stored elsewhere, adjust only the parent path; do not change the final `labs/ot-security/student-lab-source` path. Confirm the archived copy is not your working directory. Before installing or launching anything, check that the runnable scripts do not contain the archive’s unsafe defaults:
 
 ```bash
-cd ~/ACICP302ICS-Network-Security-and-Attacks/labs/ot-security/local-linux
 grep -R -nE '192\.168\.2\.139|0\.0\.0\.0' plant_sim || true
 ```
 
-For this safe copy, the command should produce **no matching output**. It is a check only; do not edit the files to make the check pass. If it reports either address, stop and notify the instructor. The original copy in the parent folder is expected to contain those addresses and must not be used for the student run.
+This command should produce no matching output. Then confirm that the expected loopback configuration is present:
 
-The lab uses these local-only services:
+```bash
+grep -R -n '127\.0\.0\.1' plant_sim
+```
+
+If the first command finds a match or the second finds no loopback configuration, stop and notify the instructor. Do not run scripts from `archive-original/`.
+
+The source uses these local-only services:
 
 | Component | Local address/port |
 |---|---|
@@ -97,110 +78,95 @@ The lab uses these local-only services:
 | Direct dashboard | <http://127.0.0.1:8080> |
 | Guarded dashboard | <http://127.0.0.1:8081> |
 
-The dashboards are development interfaces without login. They bind to loopback in the local copy, so open them in a browser **inside the Ubuntu guest**. Do not add port forwarding to view them from the host.
+The dashboards do not require login. Open them only in the browser inside the Ubuntu guest. Do not forward these ports to the host.
 
-## 6. Start the simulation
+## 5. Install dependencies
 
-Keep the virtual environment active. Open four terminals inside the Ubuntu VM. In each terminal, run:
+Complete package installation only during the instructor-approved setup window. Create a project-local virtual environment:
 
 ```bash
-cd ~/ACICP302ICS-Network-Security-and-Attacks/labs/ot-security/local-linux
+cd ~/course/ACICP302ICS-Network-Security-and-Attacks/labs/ot-security/student-lab-source
+python3 --version
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+The provided requirements include the packages needed by this lab version. Do not use `sudo pip`, install packages globally or remove `.venv` while lab processes are running. If the installation needs internet access, use NAT only temporarily as approved, then shut down the guest and disconnect its adapter before the exercise. Ask the instructor for an approved offline package source if downloads are prohibited.
+
+## 6. Start the supplied simulation
+
+Keep the VM network adapter disconnected for the lab run. Open four terminal windows inside Ubuntu. In **each** terminal, activate the environment and enter the supplied code folder:
+
+```bash
+cd ~/course/ACICP302ICS-Network-Security-and-Attacks/labs/ot-security/student-lab-source
 source .venv/bin/activate
 cd plant_sim
 ```
 
-Then start one program in each terminal, in order:
+Start the services in this order, one process per terminal:
 
-| Terminal | Command | Expected behavior |
+| Terminal | Command | Expected behaviour |
 |---|---|---|
-| 1 | `python3 plant.py` | Simulated process starts on loopback port 5020 and logs readings about once a second. |
+| 1 | `python3 plant.py` | Simulated process starts on loopback port 5020. |
 | 2 | `python3 guard.py` | Guard starts on loopback port 5021 and forwards accepted writes to the local plant. |
-| 3 | `python3 dashboard.py` | Direct-path dashboard starts on loopback port 8080. |
-| 4 | `python3 dashboard_guarded.py` | Guarded dashboard starts on loopback port 8081 with a block log. |
+| 3 | `python3 dashboard.py` | Direct dashboard starts on loopback port 8080. |
+| 4 | `python3 dashboard_guarded.py` | Guarded dashboard starts on loopback port 8081. |
 
-Open these in the Ubuntu guest's browser:
+Open the dashboards in Ubuntu:
 
 - Direct view: <http://127.0.0.1:8080>
 - Guarded view: <http://127.0.0.1:8081>
 
-Expected initial readings are approximately 67.0 °C, 34.0 bar, and 90.0 Nm³/h. Register values may move slightly as the simulator runs.
+Initial values are approximately 67.0 °C, 34.0 bar and 90.0 Nm³/h; values may move slightly as the simulator runs. The guard is rule-based, not an AI model.
 
-The guarded dashboard in the original archive has an “AI protection active” label. In the safe local copy, that label is corrected to “rule-based protection active”: the guard uses fixed rules and does not contain an AI model.
+## 7. Baseline and packet capture
 
-## 7. Record a baseline
+Before any demonstration, record the VM name, date/time, source commit, loopback check, disconnected network adapter, dashboard readings and normal observations. Save learner-created screenshots with relevant context.
 
-Before running a demonstration:
+For the packet activity, capture only a short period of the Ubuntu guest’s loopback (`lo`) traffic for the documented Modbus/TCP lab port. Do not capture other interfaces or unrelated traffic. In Wireshark, identify one request and matching response, then relate the observed fields to your register map and process state. Stop the capture and store it only in the instructor-approved private evidence location.
 
-1. Record the VM name, date/time, the fact that the lab is running inside Ubuntu, and that the scripts are the `local-linux/` copy.
-2. Confirm the no-match check passed and that the VM network adapter is disconnected (or instructor-approved Host-only, never Bridged).
-3. Confirm both dashboards show live values.
-4. Take a screenshot of each dashboard and note the initial readings.
-5. Keep the four service terminals running while you use a fifth terminal for one demonstration at a time.
+## 8. Run approved demonstrations
 
-## 8. Run the guided demonstrations
-
-From the fifth terminal, activate the same virtual environment and change to `local-linux/plant_sim`:
+Keep the four services running and use a fifth Ubuntu terminal. Activate the same environment and enter the source folder:
 
 ```bash
-cd ~/ACICP302ICS-Network-Security-and-Attacks/labs/ot-security/local-linux
+cd ~/course/ACICP302ICS-Network-Security-and-Attacks/labs/ot-security/student-lab-source
 source .venv/bin/activate
 cd plant_sim
 ```
 
-Run only the provided values and request rates. Compare port **5020** (direct path) with port **5021** (guarded path). Each pair below should be run one command at a time:
+Use the activity test plan and instructor approval. Select at least three permitted demonstrations; run them one at a time and use the supplied arguments unchanged. Each script is limited to the local simulator; port `5020` is the direct path and port `5021` is the guarded path.
 
-| Script | What it demonstrates | Commands |
+| Script | Demonstration | Supplied command pair |
 |---|---|---|
-| `attack_hold.py` | Repeated request for 95.0 bar, outside the simulated range, for about eight seconds | `python3 attack_hold.py 5020` then `python3 attack_hold.py 5021` |
-| `false_data_attack.py` | Six batches of out-of-range temperature, pressure, and flow values | `python3 false_data_attack.py 5020` then `python3 false_data_attack.py 5021` |
-| `slow_drift_attack.py` | Twelve incremental pressure changes over about 24 seconds | `python3 slow_drift_attack.py 5020` then `python3 slow_drift_attack.py 5021` |
-| `replay_attack.py` | Repeats the same pressure write three times | `python3 replay_attack.py 5020` then `python3 replay_attack.py 5021` |
-| `recon_scan.py` | Reads a limited range of holding registers | `python3 recon_scan.py 5020` then `python3 recon_scan.py 5021` |
-| `dos_attack.py` | Fixed burst of 200 read requests using 10 threads | `python3 dos_attack.py 5020` then `python3 dos_attack.py 5021` |
+| `attack_hold.py` | Requests a pressure value outside the simulated range | `python3 attack_hold.py 5020` then `python3 attack_hold.py 5021` |
+| `false_data_attack.py` | Sends the provided batches of out-of-range process values | `python3 false_data_attack.py 5020` then `python3 false_data_attack.py 5021` |
+| `slow_drift_attack.py` | Sends the provided incremental pressure changes | `python3 slow_drift_attack.py 5020` then `python3 slow_drift_attack.py 5021` |
+| `replay_attack.py` | Repeats the provided pressure write | `python3 replay_attack.py 5020` then `python3 replay_attack.py 5021` |
+| `recon_scan.py` | Reads the limited register range documented by the script | `python3 recon_scan.py 5020` then `python3 recon_scan.py 5021` |
+| `dos_attack.py` | Fixed demonstration of 200 read requests using 10 threads | Run only if the instructor approves; then use `python3 dos_attack.py 5020` followed by `python3 dos_attack.py 5021` |
 
-The local copy hardcodes the destination to `127.0.0.1`; the port argument selects only the direct or guarded simulator port. The request flood is small but still creates load: run it only against this local simulator, one time at a time, and do not increase its duration, rate, or thread count.
+Do not increase request counts, duration, rate or thread count. Run any availability/load demonstration only if it is explicitly approved. After each scenario, record actual script output, dashboard observations and relevant `plant_sim/events.jsonl` entries. Results may vary with timing; report what occurred rather than trying to force a particular result.
 
-After each run, record the script output, dashboard observations, and any relevant `plant_sim/events.jsonl` entries. Results can vary with timing; record what actually happened rather than forcing a particular result.
+## 9. Analysis and evidence
 
-## 9. Analysis questions
+For each scenario, explain which check is relevant (for example, absolute range, step-size or rolling-baseline drift); whether the direct/guarded views and event record agree; and what the result does and does not show. Consider limits such as authentication, client authorization, availability, correlated process values, direct-path bypass and process-specific thresholds. This guard is not a real safety system.
 
-Answer in your own words:
+Use the course templates for the evidence log, topology/register map, risk register, test plan and final report. Record the script, local port/path, starting state, expected and observed results, evidence reference, conclusion and recovery. Attribute the course source and record its commit; your analysis and evidence must be your own. Do not commit `.venv`, credentials, personal/site data or unapproved logs/captures to the shared course-source repository.
 
-1. Which requested values did the direct path accept, and which did the guard reject?
-2. Which validation mechanism is relevant: absolute range, step size, or rolling-baseline drift?
-3. Did the dashboard, script output, and event log agree? Describe timing differences.
-4. What does the limited register read reveal in this model, and why would the same action still need explicit authorization on any real system?
-5. What does this guard not address (for example, client identity, authentication, availability, correlated process values, or bypass through a direct path)?
-6. What additional controls would a real critical-infrastructure operator consider through formal engineering and security review?
-
-Do not claim this lab guard makes any real process safe.
-
-## 10. Evidence and cleanup
-
-Use the course evidence-log, topology/register-map, risk-register, and final-report templates. Include:
-
-- [Evidence log](../../docs/templates/evidence-log-template.md)
-- [Topology and register map](../../docs/templates/topology-and-register-map-template.md)
-- [Risk register](../../docs/templates/risk-register-template.csv)
-- [Final report](../../docs/templates/final-report-template.md)
-
-- A simple architecture and register map.
-- Baseline and comparison screenshots.
-- A results table with script, port, requested action, observed result, timestamp, and guard event.
-- A short analysis of the checks, limitations, and residual risks.
-- Confirmation that all processes were stopped and the VM was restored/cleaned up.
-
-Store evidence only in the instructor-approved submission location. Do not commit `.venv`, generated logs, captures, screenshots, reports, or personal/site data to the shared source repository.
+## 10. Stop and clean up
 
 When finished:
 
-1. Stop all four services with **Ctrl+C** in their terminals.
-2. Wait for each demonstration script to finish; do not leave processes running.
-3. Deactivate the environment with `deactivate`.
-4. Handle `plant_sim/events.jsonl` according to the instructor's evidence policy.
-5. Revert to the clean VM snapshot if required and leave the VM's network adapter disconnected.
+1. Stop each service with **Ctrl+C** in its terminal and wait for each demonstration script to finish.
+2. Confirm the lab processes have stopped and the local ports are no longer listening.
+3. Deactivate the virtual environment with `deactivate`.
+4. Handle `plant_sim/events.jsonl` and evidence according to the instructor’s policy.
+5. Restore the clean VM snapshot if directed and leave the network adapter disconnected.
 
-If a dashboard says disconnected, verify the plant was started first and the guard second. If the safety check finds a non-loopback address, stop; do not edit targets or run the original scripts.
+If a dashboard disconnects, check that the plant was started first and the guard second. If any target/bind check fails, stop; do not edit the source or run the archived scripts.
 
 ## Official VM networking references
 
